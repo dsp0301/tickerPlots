@@ -15,24 +15,12 @@ def fetch_stock_data(ticker, sma=False, ema=False):
 		ti = TechIndicators(key=api_key, output_format='pandas')
 		
 		if sma:
-			sma_data, sma_meta_data = ti.get_sma(symbol=ticker,
-												 interval='daily',
-												 time_period=180,
-												 series_type='open')
-			output_df = pd.merge(output_df,
-								 sma_data,
-								 left_index=True,
-								 right_index=True)
+			sma_data, sma_meta_data = ti.get_sma(symbol=ticker, interval='daily', time_period=180, series_type='open')
+			output_df = pd.merge(output_df, sma_data, left_index=True, right_index=True)
 		
 		if ema:
-			ema_data, ema_meta_data = ti.get_ema(symbol=ticker,
-												 interval='daily',
-												 time_period=20,
-												 series_type='open')
-			output_df = pd.merge(output_df,
-								 ema_data,
-								 left_index=True,
-								 right_index=True)
+			ema_data, ema_meta_data = ti.get_ema(symbol=ticker, interval='daily', time_period=20, series_type='open')
+			output_df = pd.merge(output_df, ema_data, left_index=True, right_index=True)
 
 	print(output_df.head())
 	return output_df
